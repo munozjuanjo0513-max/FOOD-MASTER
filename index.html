@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Food Master — Descubre algo delicioso</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--ink:#3a1210;--muted:#806655;--paper:#fff8e9;--card:#fffdf7;--line:#ead8b8;--mustard:#d6a51d;--red:#c92f21;--shadow:0 18px 45px rgba(117,43,22,.11)}
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--paper);color:var(--ink);font-family:"DM Sans",sans-serif;overflow-x:hidden} button,input,select,textarea{font:inherit} button{cursor:pointer}
+    .topbar{position:sticky;top:0;z-index:3;display:flex;align-items:center;gap:24px;padding:18px max(24px,calc((100% - 1180px)/2));background:rgba(247,248,243,.9);border-bottom:1px solid rgba(226,232,223,.8);backdrop-filter:blur(14px)}
+    .brand{display:flex;align-items:center;gap:10px;color:var(--ink);font:700 20px "Space Grotesk";white-space:nowrap}.brand-mark{display:grid;place-items:center;width:34px;height:34px;border-radius:11px;background:var(--red);color:white;font-size:18px;transform:rotate(-7deg)}
+    .search{position:relative;max-width:480px;flex:1;margin-left:auto}.search span{position:absolute;left:15px;top:11px;color:var(--muted)}.search input{width:100%;padding:12px 16px 12px 42px;border:1px solid var(--line);border-radius:14px;background:#fffdf7;outline:none;color:var(--ink)}.search input:focus{border-color:var(--red);box-shadow:0 0 0 4px rgba(201,47,33,.14)}
+    .btn{padding:11px 16px;border:0;border-radius:12px;background:var(--red);color:#fff;font-weight:700}.btn:hover{transform:translateY(-1px);background:#a82319}.btn.alt{background:transparent;color:var(--ink);border:1px solid var(--line)}
+    main{max-width:1180px;margin:0 auto;padding:54px 24px 30px;display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:26px}.eyebrow{color:var(--red);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:12px}.hero h1{max-width:670px;margin:8px 0 12px;font:700 clamp(38px,5vw,68px)/.98 "Space Grotesk";letter-spacing:-2px}.hero h1 em{color:var(--red);font-style:normal}.hero-copy{max-width:580px;color:var(--muted);font-size:17px;line-height:1.55}.hero{padding-bottom:28px}.stats{display:flex;gap:10px;margin-top:30px;flex-wrap:wrap}.stat{padding:12px 15px;border:1px solid var(--line);border-radius:14px;background:#fff1bf}.stat strong{font:700 22px "Space Grotesk";display:block}.stat small{color:var(--muted)}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin:12px 0 14px}.section-head h2{margin:0;font:700 24px "Space Grotesk"}.section-head p{margin:4px 0 0;color:var(--muted);font-size:14px}.chips{display:flex;gap:9px;margin:28px 0 34px;flex-wrap:wrap}.chip{padding:10px 14px;border:1px solid var(--line);border-radius:999px;background:#fffdf7;color:var(--ink);font-weight:700}.chip:hover,.chip.active{background:var(--mustard);border-color:var(--mustard);color:#fff}
+    .content-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.panel{padding:20px;border:1px solid var(--line);border-radius:20px;background:var(--card);box-shadow:var(--shadow)}.panel h3{margin:0;font:700 20px "Space Grotesk"}.panel-subtitle{margin:5px 0 18px;color:var(--muted);font-size:14px}
+    .post{display:flex;justify-content:space-between;gap:14px;padding:15px 0;border-top:1px solid var(--line)}.post:first-child{border-top:0;padding-top:0}.post strong{font-size:15px}.post p{margin:5px 0 0;color:var(--muted);font-size:14px;line-height:1.4}.tag{display:inline-block;margin-top:8px;padding:4px 8px;border-radius:6px;background:#fff1bf;color:#8e6800;font-size:11px;text-transform:capitalize}.like{padding:6px 9px;border:1px solid var(--line);border-radius:9px;background:#fffdf7;color:var(--ink);white-space:nowrap}.like:hover{border-color:var(--red);color:var(--red)}
+    .restaurant{display:flex;gap:12px;padding:14px 0;border-top:1px solid var(--line)}.restaurant:first-child{border-top:0;padding-top:0}.restaurant img{width:76px;height:76px;object-fit:cover;border-radius:13px}.restaurant-info{min-width:0;flex:1}.restaurant-info strong{font-size:15px}.restaurant-info p{margin:4px 0;color:var(--muted);font-size:13px}.restaurant-meta{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px}.stars{color:#b77c00;font-weight:700}.queue{margin-left:auto;padding:4px 7px;border-radius:6px;font-weight:700;font-size:11px}.green{background:#fff1bf;color:#8e6800}.yellow{background:#f5d875;color:#765500}.red{background:#ffe0d8;color:#b62e20}
+    aside{display:flex;flex-direction:column;gap:18px}.side-title{display:flex;justify-content:space-between;align-items:center}.side-title h3{margin:0;font:700 18px "Space Grotesk"}.filter-label{display:block;margin:16px 0 7px;color:var(--muted);font-size:12px;font-weight:700}.select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--ink)}.map{height:190px;overflow:hidden;border-radius:14px;margin-top:15px;background:#ead8b8}.map iframe{display:block;width:100%;height:100%;border:0}
+    .empty{padding:18px 0;color:var(--muted);font-size:14px}.preview-banner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 16px;margin:0 0 28px;border:1px solid #ecd37b;border-radius:13px;background:#fff1bf;color:#765500;font-size:14px}.preview-banner.hidden{display:none}.link-button,.more-button{border:0;background:transparent;color:var(--red);font-weight:700;padding:0}.more-button{display:block;width:100%;margin-top:17px;padding-top:15px;border-top:1px solid var(--line);text-align:left}.user-badge{display:none;align-items:center;gap:7px;color:var(--muted);font-size:13px}.user-badge.visible{display:flex}.modal{display:none;position:fixed;z-index:5;inset:0;padding:20px;background:rgba(24,33,27,.55);align-items:center;justify-content:center}.modal.open{display:flex}.modal-box{width:min(100%,480px);padding:25px;border-radius:22px;background:#fff;box-shadow:0 24px 70px rgba(0,0,0,.2)}.modal-box h2{margin:0 0 8px;font:700 25px "Space Grotesk"}.modal-copy{margin:0 0 20px;color:var(--muted);font-size:14px;line-height:1.45}.modal-box input,.modal-box textarea{display:block;width:100%;padding:12px;margin-bottom:12px;border:1px solid var(--line);border-radius:11px;resize:vertical;outline:none}.modal-box input:focus,.modal-box textarea:focus{border-color:var(--red)}.modal-actions{display:flex;justify-content:flex-end;gap:8px}.close{float:right;border:0;background:transparent;font-size:22px;color:var(--muted)}footer{text-align:center;padding:28px;color:var(--muted);font-size:13px}
+    @media(max-width:900px){.topbar{padding:14px 18px;gap:12px;flex-wrap:wrap}.search{order:3;flex-basis:100%;max-width:none}.topbar .btn{margin-left:auto}main{grid-template-columns:1fr;padding:38px 18px 20px}.content-grid{grid-template-columns:1fr}aside{display:grid;grid-template-columns:1fr 1fr}.map{height:230px}}
+    @media(max-width:560px){.topbar{padding:12px 14px}.brand{font-size:18px}.brand-mark{width:31px;height:31px}.topbar .btn{padding:10px 11px;font-size:13px}.user-badge{max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.hero h1{font-size:43px;letter-spacing:-1px}.hero-copy{font-size:15px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.stat{padding:10px 7px}.stat strong{font-size:18px}.stat small{font-size:11px}.chips{margin:22px 0 26px}.chip{padding:9px 11px;font-size:13px}.content-grid,aside{display:flex;flex-direction:column}.panel{padding:17px}.section-head h2{font-size:21px}.restaurant-meta{flex-wrap:wrap;gap:6px}.queue{margin-left:0}.preview-banner{align-items:flex-start;flex-direction:column;margin-bottom:22px;font-size:13px}.preview-banner .link-button{text-align:left}.map{height:210px}.modal{padding:14px}.modal-box{padding:21px}.modal-actions{flex-wrap:wrap}.modal-actions .btn{flex:1;min-width:120px}}
+    @media(max-width:380px){main{padding-left:13px;padding-right:13px}.topbar{gap:8px}.topbar .btn{padding:9px 8px}.brand{font-size:16px}.brand-mark{width:28px;height:28px}.hero h1{font-size:38px}.stats small{font-size:10px}.restaurant img{width:65px;height:65px}.restaurant-info p{font-size:12px}}
+  </style>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="#inicio"><span class="brand-mark">✦</span>Food Master</a><div class="search"><span>⌕</span><input id="q" aria-label="Buscar" placeholder="Busca un restaurante, estilo o evento..." oninput="applyFilters()"></div><span class="user-badge" id="userBadge"></span><button class="btn alt" id="sessionButton" onclick="handleSession()">Iniciar sesión</button><button class="btn" onclick="openCreate()">＋ Publicar</button></header>
+  <main id="inicio">
+    <section>
+      <div class="hero"><div class="eyebrow">Tu guía local de sabor</div><h1>Come bien.<br><em>Comparte mejor.</em></h1><p class="hero-copy">Descubre los lugares que están dando de qué hablar, revisa la espera y encuentra tu próximo favorito en un solo vistazo.</p><div class="stats"><div class="stat"><strong id="statCount">3</strong><small>restaurantes</small></div><div class="stat"><strong id="statRating">4.7★</strong><small>promedio</small></div><div class="stat"><strong id="statWait">24 min</strong><small>espera media</small></div></div></div><div class="preview-banner" id="previewBanner"><span>👀 Estás viendo una vista previa de Food Master.</span><button class="link-button" onclick="openLogin()">Iniciar sesión para participar →</button></div>
+      <div class="chips"><button class="chip active" data-type="" onclick="filterBy('')">Todo</button><button class="chip" data-type="burger" onclick="filterBy('burger')">🍔 Burger</button><button class="chip" data-type="sushi" onclick="filterBy('sushi')">🍣 Sushi</button><button class="chip" data-type="pizza" onclick="filterBy('pizza')">🍕 Pizza</button></div>
+      <div class="content-grid"><section class="panel"><div class="section-head"><div><h2>Lo último</h2><p>Opiniones de la comunidad</p></div></div><div id="posts"></div><button class="more-button" onclick="requireLogin()">Ver más publicaciones →</button></section><section class="panel"><div class="section-head"><div><h2>Para probar hoy</h2><p>Ordenados por calificación</p></div></div><div id="restaurantList"></div><button class="more-button" onclick="requireLogin()">Ver más restaurantes →</button></section></div>
+    </section>
+    <aside><section class="panel"><div class="side-title"><h3>Afina tu búsqueda</h3><span>⌘</span></div><label class="filter-label" for="fTipo">Tipo de comida</label><select class="select" id="fTipo" onchange="applyFilters()"><option value="">Todos los estilos</option><option value="burger">Burger</option><option value="sushi">Sushi</option><option value="pizza">Pizza</option></select><label class="filter-label" for="fRating">Calificación mínima</label><select class="select" id="fRating" onchange="applyFilters()"><option value="0">Cualquier calificación</option><option value="4">4★ o más</option><option value="4.5">4.5★ o más</option></select></section><section class="panel"><div class="side-title"><h3>Cerca de ti</h3><span>↗</span></div><div class="map"><iframe title="Mapa de restaurantes cercanos" src="https://www.google.com/maps?q=restaurantes%20cerca%20de%20mi&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div></section></aside>
+  </main>
+  <footer>© 2026 Food Master · Hecho para disfrutar sin complicaciones</footer>
+  <div id="modal" class="modal" onclick="if(event.target===this)closeCreate()"><div class="modal-box"><button class="close" aria-label="Cerrar" onclick="closeCreate()">×</button><h2>Comparte un descubrimiento</h2><input id="postTitle" placeholder="Título de tu publicación"><textarea id="postBody" rows="4" placeholder="¿Qué fue lo mejor?"></textarea><div class="modal-actions"><button class="btn alt" onclick="closeCreate()">Cancelar</button><button class="btn" onclick="submitPost()">Publicar</button></div></div></div>
+  <div id="loginModal" class="modal" onclick="if(event.target===this)closeLogin()"><div class="modal-box"><button class="close" aria-label="Cerrar" onclick="closeLogin()">×</button><h2 id="loginTitle">Inicia sesión para participar</h2><p class="modal-copy">Accede para publicar opiniones y descubrir todo el contenido de la comunidad.</p><input id="loginEmail" type="email" placeholder="Correo electrónico"><input id="loginPassword" type="password" placeholder="Contraseña (mínimo 6 caracteres)"><div class="modal-actions"><button class="btn alt" onclick="closeLogin()">Ahora no</button><button class="btn" id="loginSubmit" onclick="submitLogin()">Entrar</button></div><p class="modal-copy" style="margin:16px 0 0"><span id="modeText">¿No tienes cuenta?</span> <button class="link-button" id="modeToggle" onclick="toggleMode()">Regístrate</button></p></div></div>
+  <script>
+    let restaurants=[],posts=[],currentUser='',mode='login';
+    const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    async function api(url,options={}){
+      const res=await fetch(url,{credentials:'same-origin',headers:{'Content-Type':'application/json'},...options});
+      let data={};try{data=await res.json()}catch(e){}
+      if(!res.ok)throw new Error(data.error||'Error del servidor');
+      return data;
+    }
+    async function loadRestaurants(){
+      try{restaurants=await api('api/restaurants.php');updateStats();applyFilters()}
+      catch(e){document.getElementById('restaurantList').innerHTML=`<div class="empty">${esc(e.message)}</div>`}
+    }
+    async function loadPosts(){
+      try{posts=await api('api/posts.php');renderPosts()}
+      catch(e){document.getElementById('posts').innerHTML=`<div class="empty">${esc(e.message)}</div>`}
+    }
+    function updateStats(){
+      if(!restaurants.length)return;
+      const avg=restaurants.reduce((a,r)=>a+r.rating,0)/restaurants.length,wait=restaurants.reduce((a,r)=>a+r.wait,0)/restaurants.length;
+      document.getElementById('statCount').textContent=restaurants.length;
+      document.getElementById('statRating').textContent=avg.toFixed(1)+'★';
+      document.getElementById('statWait').textContent=Math.round(wait)+' min';
+    }
+    function renderPosts(){const el=document.getElementById('posts');el.innerHTML=posts.length?posts.map(p=>`<article class="post"><div><strong>${esc(p.title)}</strong><p>${esc(p.text)}</p><span class="tag">${esc(p.event)}</span></div><button class="like" onclick="like(${p.id})">${p.liked?'♥':'♡'} ${p.likes}</button></article>`).join(''):'<div class="empty">Todavía no hay publicaciones.</div>'}
+    function renderRestaurants(list=restaurants){const el=document.getElementById('restaurantList');el.innerHTML=list.length?list.map(r=>{const q=r.wait<=20?'green':r.wait<=40?'yellow':'red';return `<article class="restaurant"><img src="${esc(r.img)}" alt="${esc(r.name)}"><div class="restaurant-info"><strong>${esc(r.name)}</strong><p>${esc(r.desc)}</p><div class="restaurant-meta"><span class="stars">★ ${r.rating}</span><span>${esc(r.location)}</span><span class="queue ${q}">${r.wait} min</span></div></div></article>`}).join(''):'<div class="empty">No encontramos lugares con esos criterios.</div>'}
+    function applyFilters(){const type=document.getElementById('fTipo').value;const rating=parseFloat(document.getElementById('fRating').value||0);const query=document.getElementById('q').value.toLowerCase().trim();renderRestaurants(restaurants.filter(r=>(!type||r.type===type)&&r.rating>=rating&&(!query||`${r.name} ${r.desc} ${r.type}`.toLowerCase().includes(query))))}
+    function filterBy(type){document.getElementById('fTipo').value=type;document.querySelectorAll('.chip').forEach(chip=>chip.classList.toggle('active',chip.dataset.type===type));applyFilters()}
+    function openCreate(){if(!currentUser){openLogin();return}document.getElementById('modal').classList.add('open');document.getElementById('postTitle').focus()}function closeCreate(){document.getElementById('modal').classList.remove('open')}
+    function openLogin(){document.getElementById('loginModal').classList.add('open');document.getElementById('loginEmail').focus()}function closeLogin(){document.getElementById('loginModal').classList.remove('open')}
+    function requireLogin(){if(!currentUser)openLogin();else alert('Ya tienes acceso. Esta sección ampliada estará disponible en la siguiente versión.')}
+    function toggleMode(){
+      mode=mode==='login'?'register':'login';const reg=mode==='register';
+      document.getElementById('loginTitle').textContent=reg?'Crea tu cuenta':'Inicia sesión para participar';
+      document.getElementById('loginSubmit').textContent=reg?'Registrarme':'Entrar';
+      document.getElementById('modeText').textContent=reg?'¿Ya tienes cuenta?':'¿No tienes cuenta?';
+      document.getElementById('modeToggle').textContent=reg?'Inicia sesión':'Regístrate';
+    }
+    async function submitLogin(){
+      const email=document.getElementById('loginEmail').value.trim(),password=document.getElementById('loginPassword').value;
+      if(!email||!password){alert('Escribe tu correo y contraseña para continuar.');return}
+      try{const d=await api('api/auth.php?action='+mode,{method:'POST',body:JSON.stringify({email,password})});currentUser=d.email;document.getElementById('loginPassword').value='';updateSessionUI();closeLogin();loadPosts()}
+      catch(e){alert(e.message)}
+    }
+    async function handleSession(){
+      if(currentUser){try{await api('api/auth.php?action=logout',{method:'POST'})}catch(e){}currentUser='';updateSessionUI();loadPosts();return}
+      openLogin();
+    }
+    function updateSessionUI(){const button=document.getElementById('sessionButton'),badge=document.getElementById('userBadge'),preview=document.getElementById('previewBanner');button.textContent=currentUser?'Cerrar sesión':'Iniciar sesión';badge.textContent=currentUser?`● ${currentUser}`:'';badge.classList.toggle('visible',Boolean(currentUser));preview.classList.toggle('hidden',Boolean(currentUser))}
+    async function submitPost(){
+      const title=document.getElementById('postTitle').value.trim(),text=document.getElementById('postBody').value.trim();
+      if(!title||!text){alert('Añade un título y una opinión.');return}
+      try{await api('api/posts.php',{method:'POST',body:JSON.stringify({title,text})});document.getElementById('postTitle').value='';document.getElementById('postBody').value='';closeCreate();loadPosts()}
+      catch(e){alert(e.message)}
+    }
+    async function like(id){
+      if(!currentUser){openLogin();return}
+      try{const d=await api('api/like.php',{method:'POST',body:JSON.stringify({post_id:id})});const p=posts.find(x=>x.id===id);if(p){p.likes=d.likes;p.liked=d.liked;renderPosts()}}
+      catch(e){alert(e.message)}
+    }
+    async function init(){
+      try{const d=await api('api/auth.php?action=me');currentUser=d.email||''}catch(e){}
+      updateSessionUI();loadRestaurants();loadPosts();
+    }
+    init();
+  </script>
+</body>
+</html>
